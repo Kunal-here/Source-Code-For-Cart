@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+          <h1>Logo</h1>
+          <div class="navLeft">
+            <ul class="hamActive">
+              <!-- <li class="liHome"><a href="">Home</a></li> -->
+              <li><a href="index.html">Shop</a></li>
+              <!-- <li><a href="">Blog</a></li> -->
+              <!-- <li><a href="">About</a></li> -->
+              <!-- <li><a href="">Contact</a></li> -->
+              <!-- <li><a href="">Sign Up</a></li> -->
+            </ul>
+        </div>
+        <div class="hamAndCart">
+            <a href="cart.html" class="cartBag">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <p class="cartValue" id="cartValue">0<p/>
+            </a>
+              <i id="hamburger" class="fa-solid fa-bars"></i>
+            </nav>
+        </div>
+      </header>
+
+    <div class="banner" style="background-image: url(https://images.unsplash.com/photo-1528399783831-8318d62d10e5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); background-position: center;">
+        <h1>#CART</h1>
+        <p style="background-color: rgba(0, 0, 0, 0.444);">Add your coupon code and SAVE upto 70%!</p>
+    </div>
+
+    <div class="cartContainer">
+        <div class="cartHeading">
+            <h4>REMOVE</h4>
+            <h4>IMAGE</h4>
+            <h4>PRODUCT</h4>
+            <h4>PRICE</h4>
+            <h4>QUANTITY</h4>
+            <h4>SUBTOTAL</h4>
+        </div>
+        <div class="cartItems">
+            
+        </div>
+
+        <div class="subTotal">
+            <p>TOTAL PRICE: <span class="totalPrice">00</span> </p>
+        </div>
+        <div class="coupon">
+            <input type="text" class="code" placeholder="Enter Coupon Code">
+            <button class="submitCode">Submit</button>
+        </div>
+        <div class="buy">
+            <button class="buyBtn">Buy Now</button>
+        </div>
+    </div>
+ 
+    <script>
+        // GETTING DATA FROM LOCAL STORAGE
+        let carts = JSON.parse(localStorage.getItem("carts")) || [];
+        let buyBtn = document.querySelector(".buyBtn")
+
+    // UPDATE CART VALUE FUNCTION TO CHANGE THE CART VALUE WHENEVER USER ADD ANY PRODUCT TO CART
+    const updateCartValue = () => {
+        const cartValueElement = document.getElementById('cartValue');
+        let cartTotal = 0;
+        if (cartValueElement) {
+            for(let i =0;i<carts.length;i++){
+                cartTotal += carts[i].quantity
+            }
+            cartValueElement.textContent = cartTotal;
+            }
+    };
+        // console.log(carts);
+
+        // UPDATING THE CART AS WHENEVER ANY PRODUCT ADDED TO CART
+        const updateCartDisplay = ()=>{
+            let cart = document.querySelector(".cartItems")
+            cart.innerHTML = "";
+            let sum = 0;
+            if(carts.length>0){
+                carts.forEach(item => {
+                    let newCart = document.createElement('div');
+                    newCart.classList.add("cartData");
+                    newCart.innerHTML = `
+                    <i class="cancelCart fa-solid fa-xmark"  style="cursor:pointer"></i>
+                    <img src="${item.image}" alt="" >
+                    <p class="cartPName">${item.name}</p>
+                    <p class="cartPrice">${item.price}</p>
+                    <input type="text" value="${item.quantity}"  class="cartNumber" onChange="let quantityValue = (e)=> e.target.value">
+                    <p class="total">${item.quantity*item.price}</p>
+                    `;
+                    cart.appendChild(newCart);
+                    sum += item.quantity * Number(item.price);
+                    console.log(sum);
+                    
+                });
+                const code = document.querySelector('.code');
+                const submitCode = document.querySelector(".submitCode")
+                // IF USER ENTERED SPECIFIC COUPON CODE DISCOUT WILL BE ADDED
+                code.addEventListener('input',(e)=>{
+                    let couponHere = "sweet70"
+                    let couponCode = e.target.value;
+                    if(couponCode == couponHere){
+                        submitCode.addEventListener('click',()=>{
+                            const totalPrice = document.querySelector(".totalPrice")
+                            totalPrice.textContent = Math.floor(sum * 30/100);
+                            code.value = "";
+                        })
+                    }
+                })
+                const totalPrice = document.querySelector(".totalPrice")
+                totalPrice.textContent = sum;
+            }else {
+                const totalPrice = document.querySelector(".totalPrice")
+                totalPrice.textContent = "0";
+            }
+            buyBtn.addEventListener('click',()=>{
+                if(carts.length > 0){
+                    localStorage.removeItem("carts");
+                    cart.innerHTML = "THANK YOU FOR YOUR ORDER!"
+                    const totalPrice = document.querySelector(".totalPrice")
+                    totalPrice.textContent = "0";
+                    const cartValueElement = document.getElementById('cartValue');
+                    cartValueElement.textContent = "0";
+                }else {
+                    cart.innerHTML = "YOUR CART IS EMPTY,NO ORDER PLACED!"
+                    updateCartValue();
+                }
+            })
+            updateCartValue();
+    };
+    updateCartDisplay();
+        let cart = document.querySelector(".cartItems")
+        // CANCEL ANY SPECIFIC CART ITEM FUNCTION
+        cart.addEventListener('click',(e)=>{
+        let positionClick = e.target;
+        if(positionClick.classList.contains('cancelCart')){
+            const index = event.target.dataset.index;
+            carts.splice(index,1);
+            localStorage.setItem("carts",JSON.stringify(carts));
+            updateCartDisplay();
+        }
+    })
+    </script>
+<script src="https://kit.fontawesome.com/c549f2c817.js" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>

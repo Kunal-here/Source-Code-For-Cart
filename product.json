@@ -1,0 +1,44 @@
+[
+    {
+        "id":1,
+        "brand": "adidas",
+        "name": "Shirt for Summer",
+        "price": "999",
+        "image": "./shirts/shirt1.jpg"
+    },
+    {
+        "id":2,
+        "brand": "nike",
+        "name": "Shirt for Summer",
+        "price": "999",
+        "image": "./shirts/shirt2.jpg"
+    },
+    {
+        "id":3,
+        "brand": "puma",
+        "name": "Shirt for Summer",
+        "price": "999",
+        "image": "./shirts/shirt3.jpg"
+    },
+    {
+        "id":4,
+        "brand": "adidas",
+        "name": "Pant for Summer",
+        "price": "999",
+        "image": "./pants/pant1.jpg"
+    },
+    {
+        "id":5,
+        "brand": "adidas",
+        "name": "Pant for Summer",
+        "price": "999",
+        "image": "./pants/pant2.jpg"
+    },
+    {
+        "id":6,
+        "brand": "adidas",
+        "name": "Pant for Summer",
+        "price": "999",
+        "image": "./pants/pants3.jpg"
+    }
+]

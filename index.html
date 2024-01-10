@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="shop.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+          <h1>Logo</h1>
+          <div class="navLeft">
+            <ul class="hamActive">
+              <!-- <li class="liHome"><a href="">Home</a></li> -->
+              <li><a href="index.html">Shop</a></li>
+              <!-- <li><a href="blog.html">Blog</a></li> -->
+              <!-- <li><a href="about.html">About</a></li> -->
+              <!-- <li><a href="contact.html">Contact</a></li> -->
+              <!-- <li><a href="signUp.html">Sign Up</a></li> -->
+            </ul>
+        </div>
+        <div class="hamAndCart">
+            <a href="cart.html" class="cartBag">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <p class="cartValue" id="cartValue">0<p/>
+            </a>
+              <i id="hamburger" class="fa-solid fa-bars"></i>
+            </nav>
+        </div>
+    </header>
+
+    <div class="products">
+ 
+    <div class="productsContainer" id="shop">
+         
+        </div>
+     </div>
+    <script>
+        const updateCartValue = () => {
+        const cartValueElement = document.getElementById('cartValue');
+        let cartTotal = 0
+        if (cartValueElement) {
+            for(let i =0;i<carts.length;i++){
+                cartTotal += carts[i].quantity
+            }
+            cartValueElement.textContent = cartTotal;
+            }   
+    };
+    updateCartValue();
+    </script>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/c549f2c817.js" crossorigin="anonymous"></script>
+</body>
+</html>
